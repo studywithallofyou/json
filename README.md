@@ -48,21 +48,25 @@ This is clone from nlohmann::json. It is for some accessibility but not in ECMA-
 ### TODO
 
 - **1**.
+
 Add comment. You can add comment with // symbol
 
 增加注释功能，可以在json文件中增加以//为标识的注释
 
 - **2**.
+
 Allow last item end with comma
 
 最后一个元素可以以逗号结尾。
 
 - **3**.
+
 Allow end with more than one comma
 
 允许结束有多个逗号
 
 - **4**.
+
 Add default value. Allow use inexistent key.
 
 增加默认值，允许直接使用一个不存在的key。
@@ -78,6 +82,7 @@ Rule:
 * get<bool>() -> false
 
 - **5**.
+
 All fundamental data types can transform to string.
 
 允许任意基本类型转换成字符串
@@ -91,6 +96,7 @@ Rules:
 * true -> "1"
 
 - **6**.
+
 String transfor to number, invalid string is to zero.
 
 支持任意字符串转换成数字，非法字符串统一转换为0
@@ -99,6 +105,23 @@ String transfor to number, invalid string is to zero.
 * "123.4" -> 123.4
 * "a123" -> 0
 
+- **7**.
+
+integer can change to bool
+
+整数可以转为bool类型。
+
+Rules:
+
+规则：
+* 0 -> false
+* > 0 -> true
+
+- **8**.
+
+avoid implicit conversion
+
+禁止隐式转换
 ## Design goals
 
 There are myriads of [JSON](http://json.org) libraries out there, and each may even have its reason to exist. Our class had these design goals:
