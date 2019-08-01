@@ -14,7 +14,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/nlohmann/json.svg)](http://github.com/nlohmann/json/issues)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/nlohmann/json.svg)](http://isitmaintained.com/project/nlohmann/json "Average time to resolve an issue")
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/289/badge)](https://bestpractices.coreinfrastructure.org/projects/289)
-
+- [Before Read] (#before-read)
 - [Design goals](#design-goals)
 - [Integration](#integration)
   - [CMake](#cmake)
@@ -38,6 +38,56 @@
 - [Projects using JSON for Modern C++](#projects-using-json-for-modern-c)
 - [Notes](#notes)
 - [Execute unit tests](#execute-unit-tests)
+
+## Before Read
+
+This is clone from nlohmann::json. It is for some accessibility but not in ECMA-404 The JSON Data Interchange Standard.
+这是一份从nlohmann::json的克隆。目的是为了增加一些不在ECMA-404 JSON标准中的一些易用性功能。
+### TODO
+
+- **1**.
+Add comment. You can add comment with // symbol
+增加注释功能，可以在json文件中增加以//为标识的注释
+
+- **2**.
+Allow last item end with comma
+最后一个元素可以以逗号结尾。
+
+- **3**.
+Allow end with more than one comma
+允许结束有多个逗号
+
+- **4**.
+Add default value. Allow use inexistent key.
+增加默认值，允许直接使用一个不存在的key。
+
+Rule:
+规则：
+* get<int>() -> 0
+* get<long long>() -> 0
+* get<float>() -> 0.0
+* get<double>() -> 0.0
+* get<string>() -> ""
+* get<bool>() -> false
+
+- **5**.
+All fundamental data types can transform to string.
+允许任意基本类型转换成字符串
+
+Rules:
+规则：
+* 0 -> "0"
+* 0.0 -> "0.0"
+* false -> "0"
+* true -> "1"
+
+- **6**.
+String transfor to number, invalid string is to zero.
+支持任意字符串转换成数字，非法字符串统一转换为0
+
+* "123" -> 123
+* "123.4" -> 123.4
+* "a123" -> 0
 
 ## Design goals
 
