@@ -2827,7 +2827,16 @@ void get_arithmetic_value(const BasicJsonType& j, ArithmeticType& val)
         }
 
         default:
-            JSON_THROW(type_error::create(302, "type must be number, but is " + std::string(j.type_name())));
+        {
+            if (std::is_arithmetic<ArithmeticType>::value && j.type() == value_t::null)
+            {
+                val = static_cast<ArithmeticType>(0.0);
+            }
+            else
+            {
+                JSON_THROW(type_error::create(302, "type must be number, but is " + std::string(j.type_name())));
+            }
+        }
     }
 }
 
@@ -2836,9 +2845,19 @@ void from_json(const BasicJsonType& j, typename BasicJsonType::boolean_t& b)
 {
     if (JSON_HEDLEY_UNLIKELY(not j.is_boolean()))
     {
-        JSON_THROW(type_error::create(302, "type must be boolean, but is " + std::string(j.type_name())));
+        if (j.type() == value_t::null)
+        {
+            b = false;
+        }
+        else
+        {
+            JSON_THROW(type_error::create(302, "type must be boolean, but is " + std::string(j.type_name())));
+        }
     }
-    b = *j.template get_ptr<const typename BasicJsonType::boolean_t*>();
+    else
+    {
+        b = *j.template get_ptr<const typename BasicJsonType::boolean_t*>();
+    }
 }
 
 template<typename BasicJsonType>
@@ -2846,9 +2865,19 @@ void from_json(const BasicJsonType& j, typename BasicJsonType::string_t& s)
 {
     if (JSON_HEDLEY_UNLIKELY(not j.is_string()))
     {
-        JSON_THROW(type_error::create(302, "type must be string, but is " + std::string(j.type_name())));
+        if (j.type() == value_t::null)
+        {
+            s = "";
+        }
+        else
+        {
+            JSON_THROW(type_error::create(302, "type must be string, but is " + std::string(j.type_name())));
+        }
     }
-    s = *j.template get_ptr<const typename BasicJsonType::string_t*>();
+    else
+    {
+        s = *j.template get_ptr<const typename BasicJsonType::string_t*>();
+    }
 }
 
 template <
@@ -3073,7 +3102,16 @@ void from_json(const BasicJsonType& j, ArithmeticType& val)
         }
 
         default:
-            JSON_THROW(type_error::create(302, "type must be number, but is " + std::string(j.type_name())));
+        {
+            if (std::is_arithmetic<ArithmeticType>::value && j.type() == value_t::null)
+            {
+                val = static_cast<ArithmeticType>(0.0);
+            }
+            else
+            {
+                JSON_THROW(type_error::create(302, "type must be number, but is " + std::string(j.type_name())));
+            }
+        }
     }
 }
 
