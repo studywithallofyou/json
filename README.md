@@ -115,7 +115,7 @@ Rules:
 
 规则：
 * 0 -> false
-* >0 -> true
+* bigger than 0 -> true
 
 - **8**.
 
