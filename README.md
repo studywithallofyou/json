@@ -67,9 +67,9 @@ Allow end with more than one comma
 
 - **4**.
 
-Already finish.
+==Already finish.==
 
-已经完成。
+==已经完成。==
 
 Add default value. Allow use inexistent key.
 
@@ -78,12 +78,12 @@ Add default value. Allow use inexistent key.
 Rule:
 
 规则：
-* U+2714 get<int>() -> 0
-* U+2714 get<long long>() -> 0
-* U+2714 get<float>() -> 0.0
-* U+2714 get<double>() -> 0.0
-* U+2714 get<string>() -> ""
-* U+2714 get<bool>() -> false
+* [x] get<int>() -> 0
+* [x] get<long long>() -> 0
+* [x] get<float>() -> 0.0
+* [x] get<double>() -> 0.0
+* [x] get<string>() -> ""
+* [x] get<bool>() -> false
 
 - **5**.
 
