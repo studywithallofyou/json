@@ -67,6 +67,10 @@ Allow end with more than one comma
 
 - **4**.
 
+Already finish.
+
+已经完成。
+
 Add default value. Allow use inexistent key.
 
 增加默认值，允许直接使用一个不存在的key。
@@ -74,12 +78,12 @@ Add default value. Allow use inexistent key.
 Rule:
 
 规则：
-* get<int>() -> 0
-* get<long long>() -> 0
-* get<float>() -> 0.0
-* get<double>() -> 0.0
-* get<string>() -> ""
-* get<bool>() -> false
+* U+2714 get<int>() -> 0
+* U+2714 get<long long>() -> 0
+* U+2714 get<float>() -> 0.0
+* U+2714 get<double>() -> 0.0
+* U+2714 get<string>() -> ""
+* U+2714 get<bool>() -> false
 
 - **5**.
 
@@ -115,7 +119,7 @@ Rules:
 
 规则：
 * 0 -> false
-* bigger than 0 -> true
+* \> 0 -> true
 
 - **8**.
 
