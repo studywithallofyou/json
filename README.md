@@ -67,9 +67,9 @@ Allow end with more than one comma
 
 - **4**.
 
-==Already finish.==
+Already finish.
 
-==已经完成。==
+已经完成。
 
 Add default value. Allow use inexistent key.
 
