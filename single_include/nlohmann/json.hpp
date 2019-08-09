@@ -2849,6 +2849,39 @@ void from_json(const BasicJsonType& j, typename BasicJsonType::boolean_t& b)
         {
             b = false;
         }
+        else if (j.type() == value_t::number_float)
+        {
+            if (*j.template get_ptr<const typename BasicJsonType::number_float_t*>() != 0)
+            {
+                b = true;
+            }
+            else
+            {
+                b = false;
+            }
+        }
+        else if (j.type() == value_t::number_integer)
+        {
+            if (*j.template get_ptr<const typename BasicJsonType::number_integer_t*>() != 0)
+            {
+                b = true;
+            }
+            else
+            {
+                b = false;
+            }
+        }
+        else if (j.type() == value_t::number_unsigned)
+        {
+            if(*j.template get_ptr<const typename BasicJsonType::number_unsigned_t*>() != 0)
+            {
+                b = true;
+            }
+            else
+            {
+                b = false;
+            }
+        }
         else
         {
             JSON_THROW(type_error::create(302, "type must be boolean, but is " + std::string(j.type_name())));
@@ -8540,6 +8573,9 @@ scan_number_done:
 
     /// the current character
     std::char_traits<char>::int_type current = std::char_traits<char>::eof();
+
+    /// if read //comment then ignore all char until get new line
+    bool ignorecomment = false;
 
     /// whether the next get() call should just return current
     bool next_unget = false;
@@ -17035,7 +17071,7 @@ class basic_json
                       "get() cannot be used with reference types, you might want to use get_ref()");
         static_assert(std::is_default_constructible<ValueType>::value,
                       "types must be DefaultConstructible when used with get()");
-
+        
         ValueType ret;
         JSONSerializer<ValueType>::from_json(*this, ret);
         return ret;

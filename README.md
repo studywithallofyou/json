@@ -111,6 +111,10 @@ String transfor to number, invalid string is to zero.
 
 - **7**.
 
+Already finish.
+
+已经完成。
+
 integer can change to bool
 
 整数可以转为bool类型。
@@ -118,8 +122,8 @@ integer can change to bool
 Rules:
 
 规则：
-* 0 -> false
-* \> 0 -> true
+* [x] ==0 -> false //0 is false
+* [x] <> 0 -> true // not 0 is true(1, 2, -1, -2, 1.2, -1.2 etc.)
 
 - **8**.
 
