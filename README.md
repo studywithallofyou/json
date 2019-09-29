@@ -44,7 +44,7 @@
 
 This is clone from nlohmann::json. It is for some accessibility but not in ECMA-404 The JSON Data Interchange Standard.
 
-这是一份从nlohmann::json的克隆。目的是为了增加一些不在ECMA-404 JSON标准中的一些易用性功能。
+这是一份从nlohmann::json的克隆。目的是为了增加一些不在ECMA-404 JSON标准中的易用性功能。
 
 ### TODO
 
