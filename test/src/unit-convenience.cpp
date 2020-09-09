@@ -1,7 +1,7 @@
 /*
     __ _____ _____ _____
  __|  |   __|     |   | |  JSON for Modern C++ (test suite)
-|  |  |__   |  |  | | | |  version 3.7.0
+|  |  |__   |  |  | | | |  version 3.9.1
 |_____|_____|_____|_|___|  https://github.com/nlohmann/json
 
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
@@ -29,10 +29,9 @@ SOFTWARE.
 
 #include "doctest_compatibility.h"
 
-#define private public
+#define JSON_TESTS_PRIVATE
 #include <nlohmann/json.hpp>
 using nlohmann::json;
-#undef private
 
 #include <sstream>
 
@@ -58,6 +57,7 @@ TEST_CASE("convenience functions")
         CHECK(std::string(json(json::value_t::number_integer).type_name()) == "number");
         CHECK(std::string(json(json::value_t::number_unsigned).type_name()) == "number");
         CHECK(std::string(json(json::value_t::number_float).type_name()) == "number");
+        CHECK(std::string(json(json::value_t::binary).type_name()) == "binary");
         CHECK(std::string(json(json::value_t::boolean).type_name()) == "boolean");
         CHECK(std::string(json(json::value_t::string).type_name()) == "string");
         CHECK(std::string(json(json::value_t::discarded).type_name()) == "discarded");

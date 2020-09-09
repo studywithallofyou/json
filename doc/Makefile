@@ -43,7 +43,9 @@ check_output: $(EXAMPLES:.cpp=.test)
 
 
 clean:
-	rm -fr me.nlohmann.json.docset html $(EXAMPLES:.cpp=)
+	rm -fr me.nlohmann.json.docset html xml $(EXAMPLES:.cpp=)
+	$(MAKE) clean -C docset
+	$(MAKE) clean -C mkdocs
 
 
 ##########################################################################

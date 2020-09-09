@@ -1,7 +1,7 @@
 /*
     __ _____ _____ _____
  __|  |   __|     |   | |  JSON for Modern C++ (test suite)
-|  |  |__   |  |  | | | |  version 3.7.0
+|  |  |__   |  |  | | | |  version 3.9.1
 |_____|_____|_____|_|___|  https://github.com/nlohmann/json
 
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
@@ -102,6 +102,31 @@ TEST_CASE("modifiers")
                 j.clear();
                 CHECK(j.empty());
                 CHECK(j == json(json::value_t::object));
+                CHECK(j == json(k.type()));
+            }
+        }
+
+        SECTION("binary")
+        {
+            SECTION("empty binary")
+            {
+                json j = json::binary({});
+                json k = j;
+
+                j.clear();
+                CHECK(!j.empty());
+                CHECK(j == json(json::value_t::binary));
+                CHECK(j == json(k.type()));
+            }
+
+            SECTION("filled binary")
+            {
+                json j = json::binary({1, 2, 3, 4, 5});
+                json k = j;
+
+                j.clear();
+                CHECK(!j.empty());
+                CHECK(j == json(json::value_t::binary));
                 CHECK(j == json(k.type()));
             }
         }
@@ -853,7 +878,8 @@ TEST_CASE("modifiers")
                 json j("hello world");
                 json k(42.23);
 
-                std::swap(j, k);
+                using std::swap;
+                swap(j, k);
 
                 CHECK(j == json(42.23));
                 CHECK(k == json("hello world"));
@@ -935,6 +961,47 @@ TEST_CASE("modifiers")
 
                 CHECK_THROWS_AS(j.swap(s), json::type_error&);
                 CHECK_THROWS_WITH(j.swap(s), "[json.exception.type_error.310] cannot use swap() with number");
+            }
+        }
+
+        SECTION("binary_t")
+        {
+            SECTION("binary_t type")
+            {
+                json j = json::binary({1, 2, 3, 4});
+                json::binary_t s = {{5, 6, 7, 8}};
+
+                j.swap(s);
+
+                CHECK(j == json::binary({5, 6, 7, 8}));
+
+                j.swap(s);
+
+                CHECK(j == json::binary({1, 2, 3, 4}));
+            }
+
+            SECTION("binary_t::container_type type")
+            {
+                json j = json::binary({1, 2, 3, 4});
+                std::vector<std::uint8_t> s = {{5, 6, 7, 8}};
+
+                j.swap(s);
+
+                CHECK(j == json::binary({5, 6, 7, 8}));
+
+                j.swap(s);
+
+                CHECK(j == json::binary({1, 2, 3, 4}));
+            }
+
+            SECTION("non-binary_t type")
+            {
+                json j = 17;
+                json::binary_t s1 = {{1, 2, 3, 4}};
+                std::vector<std::uint8_t> s2 = {{5, 6, 7, 8}};
+
+                CHECK_THROWS_WITH_AS(j.swap(s1), "[json.exception.type_error.310] cannot use swap() with number", json::type_error);
+                CHECK_THROWS_WITH_AS(j.swap(s2), "[json.exception.type_error.310] cannot use swap() with number", json::type_error);
             }
         }
     }

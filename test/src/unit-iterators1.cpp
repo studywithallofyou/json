@@ -1,7 +1,7 @@
 /*
     __ _____ _____ _____
  __|  |   __|     |   | |  JSON for Modern C++ (test suite)
-|  |  |__   |  |  | | | |  version 3.7.0
+|  |  |__   |  |  | | | |  version 3.9.1
 |_____|_____|_____|_|___|  https://github.com/nlohmann/json
 
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
@@ -29,10 +29,9 @@ SOFTWARE.
 
 #include "doctest_compatibility.h"
 
-#define private public
+#define JSON_TESTS_PRIVATE
 #include <nlohmann/json.hpp>
 using nlohmann::json;
-#undef private
 
 TEST_CASE("iterators 1")
 {
@@ -231,12 +230,12 @@ TEST_CASE("iterators 1")
             {
                 SECTION("!(begin != begin)")
                 {
-                    CHECK(not(j.begin() != j.begin()));
+                    CHECK(!(j.begin() != j.begin()));
                 }
 
                 SECTION("!(end != end)")
                 {
-                    CHECK(not(j.end() != j.end()));
+                    CHECK(!(j.end() != j.end()));
                 }
 
                 SECTION("begin < end")
@@ -286,7 +285,7 @@ TEST_CASE("iterators 1")
 
                 SECTION("!(begin == end)")
                 {
-                    CHECK(not(j.begin() == j.end()));
+                    CHECK(!(j.begin() == j.end()));
                 }
 
                 SECTION("begin != end")

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ciso646> // not
 #include <iterator> // iterator, random_access_iterator_tag, bidirectional_iterator_tag, advance, next
 #include <type_traits> // conditional, is_const, remove_const
 
@@ -85,7 +84,7 @@ class iter_impl
     */
     explicit iter_impl(pointer object) noexcept : m_object(object)
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -121,8 +120,8 @@ class iter_impl
     /*!
     @brief const copy constructor
     @param[in] other const iterator to copy from
-    @note This copy constuctor had to be defined explicitely to circumvent a bug
-          occuring on msvc v19.0 compiler (VS 2015) debug build. For more
+    @note This copy constructor had to be defined explicitly to circumvent a bug
+          occurring on msvc v19.0 compiler (VS 2015) debug build. For more
           information refer to: https://github.com/nlohmann/json/issues/1608
     */
     iter_impl(const iter_impl<const BasicJsonType>& other) noexcept
@@ -164,14 +163,14 @@ class iter_impl
         return *this;
     }
 
-  private:
+  JSON_PRIVATE_UNLESS_TESTED:
     /*!
     @brief set the iterator to the first value
     @pre The iterator is initialized; i.e. `m_object != nullptr`.
     */
     void set_begin() noexcept
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -208,7 +207,7 @@ class iter_impl
     */
     void set_end() noexcept
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -239,19 +238,19 @@ class iter_impl
     */
     reference operator*() const
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
             case value_t::object:
             {
-                assert(m_it.object_iterator != m_object->m_value.object->end());
+                JSON_ASSERT(m_it.object_iterator != m_object->m_value.object->end());
                 return m_it.object_iterator->second;
             }
 
             case value_t::array:
             {
-                assert(m_it.array_iterator != m_object->m_value.array->end());
+                JSON_ASSERT(m_it.array_iterator != m_object->m_value.array->end());
                 return *m_it.array_iterator;
             }
 
@@ -276,19 +275,19 @@ class iter_impl
     */
     pointer operator->() const
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
             case value_t::object:
             {
-                assert(m_it.object_iterator != m_object->m_value.object->end());
+                JSON_ASSERT(m_it.object_iterator != m_object->m_value.object->end());
                 return &(m_it.object_iterator->second);
             }
 
             case value_t::array:
             {
-                assert(m_it.array_iterator != m_object->m_value.array->end());
+                JSON_ASSERT(m_it.array_iterator != m_object->m_value.array->end());
                 return &*m_it.array_iterator;
             }
 
@@ -321,7 +320,7 @@ class iter_impl
     */
     iter_impl& operator++()
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -364,7 +363,7 @@ class iter_impl
     */
     iter_impl& operator--()
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -402,7 +401,7 @@ class iter_impl
             JSON_THROW(invalid_iterator::create(212, "cannot compare iterators of different containers"));
         }
 
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -423,7 +422,7 @@ class iter_impl
     */
     bool operator!=(const iter_impl& other) const
     {
-        return not operator==(other);
+        return !operator==(other);
     }
 
     /*!
@@ -438,7 +437,7 @@ class iter_impl
             JSON_THROW(invalid_iterator::create(212, "cannot compare iterators of different containers"));
         }
 
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -459,7 +458,7 @@ class iter_impl
     */
     bool operator<=(const iter_impl& other) const
     {
-        return not other.operator < (*this);
+        return !other.operator < (*this);
     }
 
     /*!
@@ -468,7 +467,7 @@ class iter_impl
     */
     bool operator>(const iter_impl& other) const
     {
-        return not operator<=(other);
+        return !operator<=(other);
     }
 
     /*!
@@ -477,7 +476,7 @@ class iter_impl
     */
     bool operator>=(const iter_impl& other) const
     {
-        return not operator<(other);
+        return !operator<(other);
     }
 
     /*!
@@ -486,7 +485,7 @@ class iter_impl
     */
     iter_impl& operator+=(difference_type i)
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -557,7 +556,7 @@ class iter_impl
     */
     difference_type operator-(const iter_impl& other) const
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -578,7 +577,7 @@ class iter_impl
     */
     reference operator[](difference_type n) const
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         switch (m_object->m_type)
         {
@@ -609,7 +608,7 @@ class iter_impl
     */
     const typename object_t::key_type& key() const
     {
-        assert(m_object != nullptr);
+        JSON_ASSERT(m_object != nullptr);
 
         if (JSON_HEDLEY_LIKELY(m_object->is_object()))
         {
@@ -628,7 +627,7 @@ class iter_impl
         return operator*();
     }
 
-  private:
+  JSON_PRIVATE_UNLESS_TESTED:
     /// associated JSON instance
     pointer m_object = nullptr;
     /// the actual iterator of the associated instance
